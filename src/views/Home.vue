@@ -10,7 +10,8 @@
       </div>
     <!-- table区域 -->
     <van-tabs v-model="active" swipeable>
-      <van-tab v-for="(item, idx) in tableName" :title="item.name" :key="idx">
+      <!-- 政策选项卡 -->
+      <van-tab title="政策">
         <!-- 列表区域 -->
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
           <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
@@ -33,7 +34,7 @@
                   src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
                   fit="cover"
                   radius="10"
-                  height="75"
+                  height="1.5rem"
                 >
                   <!-- 播放标识插槽 -->
                   <template v-slot:default>
@@ -43,11 +44,19 @@
                 </van-image>
               </van-col>
             </van-row>
-
-            <van-row class="van-hairline--top" type="flex" justify="space-between">
-              <van-col span="16">
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 申报选项卡 -->
+      <van-tab title="申报">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
+              <van-col span="16" @dblclick.native="wjc">
                 <p class="title van-ellipsis">安徽省合肥市庐阳区人力资源和社会保障局</p>
-                <p class="description van-multi-ellipsis--l2">2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
+                <p class="description van-multi-ellipsis--l2">安徽省2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
                 <div class="bottom">
                   <span>
                     <span class="iconfont icon-yanjing"></span>408阅读
@@ -59,16 +68,174 @@
               </van-col>
               <van-col span="7">
                 <van-image
-                  src="http://img.xiaojiayun.top/2020/04/1691296065.jpg"
+                  src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
                   fit="cover"
                   radius="10"
-                  height="75"
+                  height="1.5rem"
                 >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover"></div>
+                  </template>
                   <template v-slot:loading></template>
                 </van-image>
               </van-col>
             </van-row>
-            
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 公示选项卡 -->
+      <van-tab title="公示">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
+              <van-col span="16" @dblclick.native="wjc">
+                <p class="title van-ellipsis">安徽省合肥市庐阳区人力资源和社会保障局</p>
+                <p class="description van-multi-ellipsis--l2">安徽省2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
+                <div class="bottom">
+                  <span>
+                    <span class="iconfont icon-yanjing"></span>408阅读
+                  </span>
+                  <span>
+                    <span class="iconfont icon-rili"></span>2020-07-07
+                  </span>
+                </div>
+              </van-col>
+              <van-col span="7">
+                <van-image
+                  src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
+                  fit="cover"
+                  radius="10"
+                  height="1.5rem"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover"></div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+              </van-col>
+            </van-row>
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 培训选项卡 -->
+      <van-tab title="培训">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
+              <van-col span="16" @dblclick.native="wjc">
+                <p class="title van-ellipsis">安徽省合肥市庐阳区人力资源和社会保障局</p>
+                <p class="description van-multi-ellipsis--l2">安徽省2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
+                <div class="bottom">
+                  <span>
+                    <span class="iconfont icon-yanjing"></span>408阅读
+                  </span>
+                  <span>
+                    <span class="iconfont icon-rili"></span>2020-07-07
+                  </span>
+                </div>
+              </van-col>
+              <van-col span="7">
+                <van-image
+                  src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
+                  fit="cover"
+                  radius="10"
+                  height="1.5rem"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover"></div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+              </van-col>
+            </van-row>
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 汇编选项卡 -->
+      <van-tab title="汇编" class="difference assembly">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" v-for="item in test" :key="item">
+              <van-image height="3.1rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <p class="asseTitle van-ellipsis">国家级、省级同时申报，市截止时间8月</p>
+              <p class="asseDescri van-multi-ellipsis--l2">关于开展第四批智慧健康养老应用试点示范的通知</p>
+              <p class="asseDate">2020-07-30</p>
+            </van-row>
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 简报选项卡 -->
+      <van-tab title="简报" class="difference briefing">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
+              <van-col span="11" @dblclick.native="wjc">
+                <van-image
+                  src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
+                  fit="cover"
+                  height="3.1rem"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover">简报<br/>“第八期”</div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+              </van-col>
+              <van-col span="13">
+                <p class="brieTit van-multi-ellipsis--l2">2019年湖南中小企业服务联盟会议召开</p>
+                <p class="brieTit van-multi-ellipsis--l2">湖南省中小企业服务联盟创业创新分会2019年成员大会暨...</p>
+                <p class="brieTit van-multi-ellipsis--l2">柳州市召开小微企业创业创新基地城市示范创建工作总结会</p>
+              </van-col>
+            </van-row>
+          </van-list>
+        </van-pull-refresh>
+      </van-tab>
+      <!-- 评估选项卡 -->
+      <van-tab title="评估">
+        <!-- 列表区域 -->
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <!-- 每一行 -->
+            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
+              <van-col span="16" @dblclick.native="wjc">
+                <p class="title van-ellipsis">安徽省合肥市庐阳区人力资源和社会保障局</p>
+                <p class="description van-multi-ellipsis--l2">安徽省2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
+                <div class="bottom">
+                  <span>
+                    <span class="iconfont icon-yanjing"></span>408阅读
+                  </span>
+                  <span>
+                    <span class="iconfont icon-rili"></span>2020-07-07
+                  </span>
+                </div>
+              </van-col>
+              <van-col span="7">
+                <van-image
+                  src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
+                  fit="cover"
+                  radius="10"
+                  height="1.5rem"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover"></div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+              </van-col>
+            </van-row>
           </van-list>
         </van-pull-refresh>
       </van-tab>
@@ -83,15 +250,6 @@ export default {
       // tab数据
       active: 0,
       test:[1,2,3,4,5,6],
-      tableName: [
-        { name: "政策" },
-        { name: "申报" },
-        { name: "公示" },
-        { name: "培训" },
-        { name: "汇编" },
-        { name: "简报" },
-        { name: "评估" },
-      ],
       // 列表数据
       list: [],
       loading: false,
@@ -191,7 +349,49 @@ export default {
       }
     }
     /deep/ .van-tabs__content {
-      margin-top: 0.98rem;
+      background: #fff;
+      .van-tab__pane{
+        margin-top: 0.98rem;
+      }
+      .difference{
+        margin-top: -1.62rem;
+      }
+      .assembly{
+        .van-image{border-radius: .2rem 0.2rem 0 0;overflow: hidden;}
+        .asseTitle{font-size: .35rem;line-height: .7rem;letter-spacing: .05rem;}
+        .asseDescri{font-size: .32rem;color: #898989;line-height: .46rem;letter-spacing: 0.04rem;}
+        .asseDate{font-size:.26rem;line-height: .46rem;color: #c4c4c4;text-align: right;}
+        .van-row {
+          padding: 0.38rem 0 0;
+          &:first-child{padding: 0;}
+        }
+      }    
+      .briefing{
+        .van-row{padding: .2rem 0 0 0;
+          .van-col--11{
+            .van-image{border-radius: .2rem 0 0 .2rem;overflow: hidden;
+              /deep/ .cover{
+                background: none;
+                // background: #000 url(../assets/workTrends.png) center no-repeat;
+                // background-size: 1.29rem 1.29rem;
+                background: #000;
+                font-size: .32rem;
+                line-height: .7rem;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          }
+          .van-col--13{padding: 0 .2rem;
+            .brieTit{font-size: .24rem;line-height: .35rem;padding: .17rem 0;border-bottom: 1px solid #edebeb;
+              &:last-child{border-bottom: none;}
+            }
+          }
+        }
+      }  
     }
     .van-image {
       width: 100%;
