@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { List, PullRefresh, Cell, CellGroup,Tab, Tabs, Col, Row, Image as VanImage, Loading, Swipe, SwipeItem, Lazyload, Toast } from 'vant'
+import { List, PullRefresh, Cell, CellGroup,Tab, Tabs, Col, Row, Image as VanImage, Loading, Swipe, SwipeItem, Lazyload, Toast, NavBar, Field, Uploader, Button, Icon, Popup, Rate, Form, Checkbox, CheckboxGroup, Search, DropdownMenu, DropdownItem, Tag, Area ,IndexBar, IndexAnchor,Collapse, CollapseItem} from 'vant'
 
 Vue.use(List)
 Vue.use(PullRefresh)
@@ -13,5 +13,25 @@ Vue.use(VanImage);
 Vue.use(Loading);
 Vue.use(Swipe);
 Vue.use(SwipeItem);
+Vue.use(NavBar);
+Vue.use(Field);
+Vue.use(Uploader);
+Vue.use(Button);
+Vue.use(Icon);
+Vue.use(Popup);
+Vue.use(Rate);
+Vue.use(Form);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+Vue.use(Search);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
+Vue.use(Tag);
+Vue.use(Area);
+Vue.use(IndexBar);
+Vue.use(IndexAnchor);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
+
 Vue.use(Lazyload);
 Vue.use(Toast);

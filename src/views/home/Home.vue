@@ -1,5 +1,15 @@
 <template>
   <div class="homeList">
+    <!-- header区域 -->
+    <div class="header">
+      <div class="header-left">
+        <van-image round width="0.6rem" height="0.6rem" src="https://img.yzcdn.cn/vant/cat.jpeg"></van-image>
+      </div>
+      <div class="header-input"><van-icon class-prefix="icon" class="iconfont" name="sousuo" />高新技术企业</div>
+      <router-link to="/city">
+        <div class="header-right">合肥市高新区<van-icon class-prefix="icon" class="iconfont" name="jiantou" /></div>
+      </router-link>
+    </div>
     <!-- banner区域 -->
       <div class="bannerWrapper">
         <van-swipe indicator-color="#d53c3e" :autoplay="3000">
@@ -305,13 +315,42 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../assets/less/constant.less";
+@import "../../assets/less/constant.less";
 .homeList {
   padding: 0 0.24rem;
   position: relative;
+  .header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: .88rem;
+    display: flex;
+    z-index: 999;
+    background: @mainColor;
+    padding: .14rem .24rem;
+    align-items: center;
+    .header-input{
+      .iconfont{font-size: 24px;}
+      margin: 0 .2rem;
+      height: 100%;
+      display: flex;
+      flex: 1;
+      padding: .18rem;
+      align-items: center;
+      border-radius: .3rem;
+      line-height: .6rem;
+      font-size: .24rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .header-right{
+      color: #fff;
+    }
+  }
   .van-swipe {
     border-radius: 0.2rem;
-    top: .98rem;
+    top: 1.86rem;
     .van-swipe-item {
       img {
         width: 100%;
@@ -324,7 +363,7 @@ export default {
     /deep/ .van-tabs__wrap {
       height: 0.78rem;
       position: fixed;
-      top: 0;
+      top: 0.88rem;
       left: 0;
       right: 0;
       background: #fff;
@@ -351,7 +390,7 @@ export default {
     /deep/ .van-tabs__content {
       background: #fff;
       .van-tab__pane{
-        margin-top: 0.98rem;
+        margin-top: 1.86rem;
       }
       .difference{
         margin-top: -1.62rem;
@@ -400,7 +439,7 @@ export default {
         height: 100%;
         position: absolute;
         top: 0;
-        background: #000 url(../assets/player.png) center no-repeat;
+        background: #000 url(../../assets/player.png) center no-repeat;
         background-size: 0.72rem 0.72rem;
         opacity: .4;
       }
