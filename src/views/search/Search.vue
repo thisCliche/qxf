@@ -2,63 +2,117 @@
   <div class="search">
     <div class="searchTop">
       <van-row class="searchColumn" type="flex">
-      <div class="location van-ellipsis" @click="localSelect">合肥市高新区</div>
-      <div style="flex:1;">
-        <form action="/">
-          <van-search
-            v-model.trim="searchVal"
-            show-action
-            placeholder="请输入搜索关键词"
-            shape="round"
-            background="#d53c3e"
-            @search="onSearch"
-            @cancel="onCancel"
-            @clear="onClear"
-          />
-        </form>
-      </div>
-    </van-row>
-    <van-dropdown-menu z-index="999">
-      <van-dropdown-item v-model="value1" :options="option1" />
-      <van-dropdown-item v-model="value2" :options="option2" />
-      <van-dropdown-item v-model="value3" :options="option3" />
-    </van-dropdown-menu>
+        <div class="location van-ellipsis" @click="$router.push('/location')">
+          {{areaName}}
+        </div>
+        <div style="flex:1;">
+          <form action="/">
+            <van-search
+              v-model.trim="searchVal"
+              show-action
+              placeholder="请输入搜索关键词"
+              shape="round"
+              background="#d53c3e"
+              @search="onSearch"
+              @cancel="$router.go(-1)"
+              @clear="onClear"
+            />
+          </form>
+        </div>
+      </van-row>
+      <van-dropdown-menu z-index="999">
+        <van-dropdown-item
+          @change="screen"
+          v-model="value1"
+          :options="option1"
+        />
+        <van-dropdown-item
+        @change="screen"
+          v-model="value2"
+          :options="option2"
+        />
+        <van-dropdown-item
+        @change="screen"
+          v-model="value3"
+          :options="option3"
+        />
+      </van-dropdown-menu>
     </div>
     <div class="searchRes">
       <div class="noSearch" v-if="searchFlag">
-          <div class="noSearchTit">
-            热门搜索
-          </div>
-          <div class="noSearchBd">
-            <van-tag v-for="(item, idx) in searchHot" @click="record(item)" :key="idx" color="#ffffff" text-color="#646464" type="primary" size="large">{{item}}</van-tag>
-          </div>
-          <div class="noSearchTit">
-            历史搜索
-          </div>
-          <div class="noSearchBd">
-            <van-tag v-for="(item, idx) in searchValHist" :key="idx" color="#ffffff"  @click="record(item)" text-color="#646464" type="primary" size="large">{{item}}</van-tag>
-            <p class="clearHist" v-if="clearHistFlag" @click="handlerClearHist">清除搜索历史记录</p>
-            <p class="clearHist" v-else>暂无搜索记录</p>
-          </div>
+        <div class="noSearchTit">
+          热门搜索
+        </div>
+        <div class="noSearchBd">
+          <van-tag
+            v-for="(item, idx) in searchHot"
+            @click="record(item)"
+            :key="idx"
+            color="#ffffff"
+            text-color="#646464"
+            type="primary"
+            size="large"
+            >{{ item }}</van-tag
+          >
+        </div>
+        <div class="noSearchTit">
+          历史搜索
+        </div>
+        <div class="noSearchBd">
+          <van-tag
+            v-for="(item, idx) in searchValHist"
+            :key="idx"
+            color="#ffffff"
+            @click="record(item)"
+            text-color="#646464"
+            type="primary"
+            size="large"
+            >{{ item }}</van-tag
+          >
+          <p class="clearHist" v-if="clearHistFlag" @click="handlerClearHist">
+            清除搜索历史记录
+          </p>
+          <p class="clearHist" v-else>暂无搜索记录</p>
+        </div>
       </div>
       <div class="hasSearch" v-else>
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+        <van-empty v-if="searchRes.length == 0" image="search" description="未搜索到相关内容" />
+          <van-list
+          :immediate-check="false"
+          v-else
+          :error.sync="error"
+  error-text="请求失败，点击重新加载"
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+          >
             <!-- 每一行 -->
-            <van-row class="van-hairline--surround" type="flex" v-for="item in test" :key="item" justify="space-between">
-              <van-col span="16" @dblclick.native="wjc">
-                <p class="title van-ellipsis"><van-tag style="margin-right:0.1rem;" type="primary">标签</van-tag>安徽省合肥市庐阳区人力资源和社会保障局</p>
-                <p class="description van-multi-ellipsis--l2">安徽省2020年度就业困难人员社保保险补贴（高校毕业生就业见习补贴）申</p>
+            <van-row
+              class="hairline--bottom"
+              type="flex"
+              v-for="item in searchRes"
+              :key="item.id"
+              justify="space-between"
+            >
+              <van-col span="24">
+                <p class="title van-ellipsis">
+                  <!-- <van-tag style="margin-right:0.1rem;" type="primary"
+                    >标签</van-tag> -->
+                    {{item.orginName}}
+                </p>
+                <p class="description van-multi-ellipsis--l2"  v-html="item.title">
+                </p>
                 <div class="bottom">
-                  <span>
+                  <!-- <span>
                     <span class="iconfont icon-yanjing"></span>408阅读
-                  </span>
+                  </span> -->
                   <span>
-                    <span class="iconfont icon-rili"></span>2020-07-07
+                    <span class="iconfont icon-rili"></span>{{item.handle_time.substr(0,10)}}
                   </span>
                 </div>
               </van-col>
-              <van-col span="7">
+              <!-- <van-col span="7">
                 <van-image
                   src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
                   fit="cover"
@@ -66,76 +120,72 @@
                   height="1.5rem"
                 >
                   <!-- 播放标识插槽 -->
-                  <template v-slot:default>
+                  <!-- <template v-slot:default>
                     <div class="cover"></div>
                   </template>
                   <template v-slot:loading></template>
                 </van-image>
-              </van-col>
+              </van-col> --> 
             </van-row>
           </van-list>
-        </van-pull-refresh>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getJspaJspaQuery, getJspaPolicy } from "@/api/request.js";
 export default {
   name: "",
   data() {
     return {
-      test:[1,2,3,4,5,6],
+      test: [1, 2, 3, 4, 5, 6],
       // 列表数据
+      searchRes: [],
+      areaName: '',
+      criCode: "320000",
       list: [],
+      error: false,
       loading: false,
       finished: false,
-      refreshing: false,
-      images: [
-        "http://img.xiaojiayun.top/2020/03/115753828.jpg",
-        "http://img.xiaojiayun.top/2020/03/1270226805.jpg",
-        "http://img.xiaojiayun.top/2020/03/128578367.png",
-        "http://img.xiaojiayun.top/2020/03/1362501591.jpg",
-      ],
-      // 搜索结果显示与否
+            // 搜索结果显示与否
       searchFlag: true,
       // 输入搜索内容
       searchVal: "",
       // 从换从中取出的搜索内容
       searchValHist: [],
       // 热门搜索
-      searchHot: ['企业技术中心', '创新型企业', '高新技术开发企业', '著名商标'],
-      value1: 0,
-      value2: 'a',
-      value3: 'ab',
+      searchHot: ["企业技术中心", "创新型企业", "高新技术开发企业", "著名商标"],
+      value1: -2,  // 发布机构
+      value2: -1,  // 新闻类型
+      value3: "all",  // 发布时间
+      query: {
+        criCode: "320000",
+        jspaId: "",
+        page: 1,
+        size: 10,
+        policyType: "",
+        sreach: "",
+        startTime: "",
+        Endtime: ""
+      },
+      total: 0,
       option1: [
-        { text: '所选区域', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 },
-        { text: '全部商品', value: 3 },
-        { text: '新款商品', value: 4 },
-        { text: '活动商品', value: 5 },
-        { text: '全部商品', value: 6 },
-        { text: '新款商品', value: 7 },
-        { text: '活动商品', value: 8 },
-        { text: '新款商品', value: 9 },
-        { text: '活动商品', value: 10 },
-        { text: '全部商品', value: 13 },
-        { text: '新款商品', value: 14 },
-        { text: '活动商品', value: 15 },
-        { text: '全部商品', value: 16 },
-        { text: '新款商品', value: 17 },
-        { text: '活动商品', value: 18 },
+        { text: "全部机构", value: -2 },
       ],
       option2: [
-        { text: '发布机构', value: 'a' },
-        { text: '好评排序', value: 'b' },
-        { text: '销量排序', value: 'c' },
+        // { text: "全部类型", value: -2 },
+        { text: "政策相关", value: -1 },
+        { text: "申报相关", value: 0 },
+        { text: "公示相关", value: 2 },
+        { text: "培训相关", value: 1 },
       ],
       option3: [
-        { text: '发布时间', value: 'ab' },
-        { text: '好评排序', value: 'bb' },
-        { text: '销量排序', value: 'cb' },
+        { text: "全部时间", value: "all" },
+        { text: "今天", value: "today" },
+        { text: "最近一周", value: "week" },
+        { text: "最近一个月", value: "month" },
+        { text: "最近三个月", value: "thisMonth" },
       ],
     };
   },
@@ -143,128 +193,137 @@ export default {
   components: {},
   computed: {
     clearHistFlag() {
-      if(this.searchValHist.length) return true
-      else false
-    }
+      if (this.searchValHist.length) return true;
+      else false;
+    },
   },
   methods: {
     record(item) {
-      this.searchVal = item
-      this.searchFlag = false
+      this.searchVal = item;
+      this.onSearch(item);
+      this.searchFlag = false;
     },
     //滚动到底部会触发的事件
-    onLoad() {
-      setTimeout(() => {
-        // 判断是否由下拉刷新所激活的
-        if (this.refreshing) {
-          this.list = [];
-          this.refreshing = false;
-        }
-        //增加数据代码
-        for (let i = 0; i < 20; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        //数据更新完毕后将loading改为false
-        this.loading = false;
-        //数据全部加载完毕后 finished 改为true
-        if (this.list.length >= 40) {
-          this.finished = true;
-        }
-      }, 1000);
-    },
-    // 下拉刷新事件
-    onRefresh() {
-      // 清空列表数据
-      this.finished = false;
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      this.loading = true;
-      this.onLoad();
-    },
-    localSelect() {
-      this.$toast("选择地理位置");
+    async onLoad() {
+      this.query.page += 1;
+      if(this.searchRes.length >= this.total) {
+        return this.finished = true;
+      }
+      let res = await getJspaPolicy(this.$qs.stringify(this.query));
+      if(res.data.code != '200') return this.error = true
+      this.searchRes.push(...res.data.data.records)
+      this.loading = false;
     },
     onSearch(val) {
-      if(val.length == 0) return this.$toast('请输入搜索内容');
-      this.searchValHist.push(val)
+      if (val.length == 0) return this.$toast("请输入搜索内容");
+      this.searchValHist.push(val);
+      this.query.sreach = val
+      this.getSearchRes();
       // 将历史搜索结果转为字符串存入 localStorage
-      localStorage.setItem('searchValHist', JSON.stringify(this.searchValHist))
-      this.searchFlag = false
+      localStorage.setItem("searchValHist", JSON.stringify(this.searchValHist));
+      this.searchFlag = false;
     },
     onClear() {
-      this.searchFlag = true
-    },
-    onCancel() {
-      this.$toast("取消");
+      this.searchFlag = true;
     },
     // 删除历史记录
     handlerClearHist() {
-      console.log(1)
-      this.searchValHist = []
-      localStorage.setItem('searchValHist', JSON.stringify(this.searchValHist))
-    }
+      this.searchValHist = [];
+      localStorage.setItem("searchValHist", JSON.stringify(this.searchValHist));
+    },
+    // 筛选
+    screen() {
+      if (this.query.sreach.length == 0) return console.log('请输入搜索内容')
+      this.getSearchRes()
+    },
+    // 填写搜索参数
+    // 搜索结果
+    async getSearchRes() {
+      this.query.criCode = this.criCode;
+      this.query.jspaId = this.value1 == -2 ? '' : this.value1;
+      this.query.policyType = this.value2;
+      this.query.startTime = this.getTimeSection(this.value3)[0]
+      this.query.Endtime = this.getTimeSection(this.value3)[1]
+      this.query.page = 1
+      window.scrollTo(0,0)
+      this.finished = false
+      this.loading = false
+      let res = await getJspaPolicy(this.$qs.stringify(this.query));
+      if(res.data.code != '200') return this.$toast({ message: "搜索失败！", position: "bottom" });
+      this.total = res.data.data.total
+      this.searchRes = res.data.data.records
+    },
+    // 获取发布机构
+    async getPublisher() {
+      let res = await getJspaJspaQuery(this.criCode);
+      if (res.data.code != "200")
+        return this.$toast({ message: "发布机构获取失败！", position: "bottom" });
+      res = res.data.data
+      res.map((value,index,arry)=>{
+          this.option1.push({'text':value.name, 'value':value.id})
+      })  
+    },
+    // 时间区间
+    getTimeSection(type) {
+      let startTime = new Date(), Endtime = new Date();
+      switch(type) {
+        case 'today':
+          startTime = 'today';
+          Endtime = 'today';
+          break;
+        case 'week':
+          startTime.setTime(startTime.getTime() - 3600 * 1000 * 24 * 7);
+          startTime = this.dateFormat('YYYY-mm-dd',startTime);
+          Endtime = this.dateFormat('YYYY-mm-dd',Endtime);
+          break;
+        case 'month':
+          startTime.setTime(startTime.getTime() - 3600 * 1000 * 24 * 30);
+          startTime = this.dateFormat('YYYY-mm-dd',startTime);
+          Endtime = this.dateFormat('YYYY-mm-dd',Endtime);
+          break;
+        case 'thisMonth':
+          startTime.setTime(startTime.getTime() - 3600 * 1000 * 24 * 90);
+          startTime = this.dateFormat('YYYY-mm-dd',startTime);
+          Endtime = this.dateFormat('YYYY-mm-dd',Endtime);
+          break;
+        default:
+          startTime = '';
+          Endtime = '';
+      }
+      return [startTime,Endtime]
+    },
+    dateFormat(fmt, date) {
+    let ret;
+    const opt = {
+        "Y+": date.getFullYear().toString(),        // 年
+        "m+": (date.getMonth() + 1).toString(),     // 月
+        "d+": date.getDate().toString(),            // 日
+        "H+": date.getHours().toString(),           // 时
+        "M+": date.getMinutes().toString(),         // 分
+        "S+": date.getSeconds().toString()          // 秒
+    };
+    for (let k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        };
+    };
+    return fmt;
+}
   },
   created() {
     // 取出存储里的历史搜索记录并转为数组
-    this.searchValHist = JSON.parse(localStorage.getItem('searchValHist')) || []
+    this.searchValHist =
+      JSON.parse(localStorage.getItem("searchValHist")) || [];
   },
-  mounted() {},
+  mounted() {
+    this.criCode = localStorage.getItem('criCode')
+    this.areaName = localStorage.getItem('areaName')
+    this.getPublisher();
+  },
 };
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/less/constant.less';
-.searchTop{position: fixed;top: 0;left:0;right:0;z-index: 999;}
-.searchColumn{background: @mainColor;padding: 0 .16rem 0 0.24rem;
-  .van-search {
-  padding: 5px 0px;
-  // /deep/ .van-icon-search {font-size: 18px;}
-  /deep/ .van-cell{padding: 3px 8px 3px 0;}
-  /deep/ .van-icon{color: @mainColor;}
-  /deep/ .van-search__action{color: #fff;}
-}
-.van-search__action:active{background: none;}
-.location{line-height: 44px; color: #fff;margin-right: .2rem;}
-}
-
-.searchRes{
-  position: absolute;
-    top: 1.88rem;
-    z-index: 99;
-  .noSearch{
-    .noSearchTit{line-height: .9rem;background: #f5f5f5;padding: 0 .24rem;}
-    .noSearchBd{padding: 0 .24rem;margin-bottom: .24rem;
-      .van-tag{margin: .24rem 0 0 0;}
-      .clearHist{color: #646464;text-align: center;margin-top: .4rem;}
-    }
-  }
-  .hasSearch{
-    padding: 0 .24rem;
-    .van-row {
-    padding: 0.3rem 0;
-  }
-  .title {
-    color: #797979;
-    font-size: 0.26rem;
-    margin-bottom: 0.16rem;
-  }
-  .description {
-    font-size: 0.28rem;
-    color: #414141;
-    line-height: 0.38rem;
-    margin-bottom: 0.08rem;
-  }
-  .bottom {
-    display: flex;
-    justify-content: space-between;
-    span {
-      color: #8c8c8c;
-      font-size: 0.18rem;
-      &.iconfont {
-        margin-right: 0.06rem;
-      }
-    }
-  }
-  }
-}
+@import "../../assets/less/search.less";
 </style>

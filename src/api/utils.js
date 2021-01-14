@@ -1,5 +1,6 @@
 let cityJson = `{
-    "province": [{
+  "province": [
+    {
       "spell": "hebeishen",
       "name": "河北省",
       "id": "130000"
@@ -140,8 +141,7 @@ let cityJson = `{
       "id": "710000"
     }
   ],
-	"cities": {
-	    "A": [
+  "cities": [
       {
         "spell": "abazangzuqiangzuzizhizho",
         "name": "阿坝藏族羌族自治州",
@@ -201,9 +201,7 @@ let cityJson = `{
         "spell": "aomenbanda",
         "name": "澳门半岛",
         "id": "820100"
-      }
-    ],
-    "B": [
+      },
       {
         "spell": "bayannaoersh",
         "name": "巴彦淖尔市",
@@ -308,9 +306,7 @@ let cityJson = `{
         "spell": "bozhoush",
         "name": "亳州市",
         "id": "341600"
-      }
-    ],
-    "C": [
+      },
       {
         "spell": "cangzhoush",
         "name": "沧州市",
@@ -395,9 +391,7 @@ let cityJson = `{
         "spell": "chuxiongyizuzizhizho",
         "name": "楚雄彝族自治州",
         "id": "532300"
-      }
-    ],
-    "D": [
+      },
       {
         "spell": "dazhoush",
         "name": "达州市",
@@ -487,9 +481,7 @@ let cityJson = `{
         "spell": "danzhoush",
         "name": "儋州市",
         "id": "469003"
-      }
-    ],
-    "E": [
+      },
       {
         "spell": "eerduosish",
         "name": "鄂尔多斯市",
@@ -504,9 +496,7 @@ let cityJson = `{
         "spell": "enshitujiazumiaozuzizhizho",
         "name": "恩施土家族苗族自治州",
         "id": "422800"
-      }
-    ],
-    "F": [
+      },
       {
         "spell": "fangchenggangsh",
         "name": "防城港市",
@@ -541,9 +531,7 @@ let cityJson = `{
         "spell": "fuyangsh",
         "name": "阜阳市",
         "id": "341200"
-      }
-    ],
-    "G": [
+      },
       {
         "spell": "gannanzangzuzizhizho",
         "name": "甘南藏族自治州",
@@ -598,9 +586,7 @@ let cityJson = `{
         "spell": "guoluozangzuzizhizho",
         "name": "果洛藏族自治州",
         "id": "632600"
-      }
-    ],
-    "H": [
+      },
       {
         "spell": "haerbinsh",
         "name": "哈尔滨市",
@@ -780,9 +766,7 @@ let cityJson = `{
         "spell": "huizhoush",
         "name": "惠州市",
         "id": "441300"
-      }
-    ],
-    "J": [
+      },
       {
         "spell": "jilongsh",
         "name": "基隆市",
@@ -917,9 +901,7 @@ let cityJson = `{
         "spell": "jiuquansh",
         "name": "酒泉市",
         "id": "620900"
-      }
-    ],
-    "K": [
+      },
       {
         "spell": "kashendiq",
         "name": "喀什地区",
@@ -944,9 +926,7 @@ let cityJson = `{
         "spell": "kunmingsh",
         "name": "昆明市",
         "id": "530100"
-      }
-    ],
-    "L": [
+      },
       {
         "spell": "lasash",
         "name": "拉萨市",
@@ -1111,9 +1091,7 @@ let cityJson = `{
         "spell": "luohesh",
         "name": "漯河市",
         "id": "411100"
-      }
-    ],
-    "M": [
+      },
       {
         "spell": "maanshansh",
         "name": "马鞍山市",
@@ -1148,9 +1126,7 @@ let cityJson = `{
         "spell": "mudanjiangsh",
         "name": "牡丹江市",
         "id": "231000"
-      }
-    ],
-    "N": [
+      },
       {
         "spell": "neiqudiq",
         "name": "那曲地区",
@@ -1215,9 +1191,7 @@ let cityJson = `{
         "spell": "nujianglisuzuzizhizho",
         "name": "怒江傈僳族自治州",
         "id": "533300"
-      }
-    ],
-    "P": [
+      },
       {
         "spell": "panzhihuash",
         "name": "攀枝花市",
@@ -1267,9 +1241,7 @@ let cityJson = `{
         "spell": "puyangsh",
         "name": "濮阳市",
         "id": "410900"
-      }
-    ],
-    "Q": [
+      },
       {
         "spell": "qitaihesh",
         "name": "七台河市",
@@ -1349,9 +1321,7 @@ let cityJson = `{
         "spell": "quzhoush",
         "name": "衢州市",
         "id": "330800"
-      }
-    ],
-    "R": [
+      },
       {
         "spell": "rikazediq",
         "name": "日喀则地区",
@@ -1361,9 +1331,7 @@ let cityJson = `{
         "spell": "rizhaosh",
         "name": "日照市",
         "id": "371100"
-      }
-    ],
-    "S": [
+      },
       {
         "spell": "sanmenxiash",
         "name": "三门峡市",
@@ -1523,9 +1491,7 @@ let cityJson = `{
         "spell": "shamensh",
         "name": "厦门市",
         "id": "350200"
-      }
-    ],
-    "T": [
+      },
       {
         "spell": "tachengdiq",
         "name": "塔城地区",
@@ -1630,9 +1596,7 @@ let cityJson = `{
         "spell": "tunchangxia",
         "name": "屯昌县",
         "id": "469026"
-      }
-    ],
-    "W": [
+      },
       {
         "spell": "wanningsh",
         "name": "万宁市",
@@ -1722,9 +1686,7 @@ let cityJson = `{
         "spell": "wuzhishansh",
         "name": "五指山市",
         "id": "469001"
-      }
-    ],
-    "X": [
+      },
       {
         "spell": "xiansh",
         "name": "西安市",
@@ -1849,9 +1811,7 @@ let cityJson = `{
         "spell": "xuanchengsh",
         "name": "宣城市",
         "id": "341800"
-      }
-    ],
-    "Y": [
+      },
       {
         "spell": "yaansh",
         "name": "雅安市",
@@ -1986,9 +1946,7 @@ let cityJson = `{
         "spell": "yunchengsh",
         "name": "运城市",
         "id": "140800"
-      }
-    ],
-    "Z": [
+      },
       {
         "spell": "zhangchunsh",
         "name": "长春市",
@@ -2119,10 +2077,20 @@ let cityJson = `{
         "name": "遵义市",
         "id": "520300"
       }
-    ] 
-  }
+    ]
 }`
 
-export default {
-  cityInfo : JSON.parse(cityJson)
-};
+let area = JSON.parse(cityJson)
+let type = '3'
+let flag = false
+export function isInclude(criCode) {
+  area.province.forEach(item=>{
+    if(item.id == criCode)  {type = '1';flag=true; return}
+  })
+  if(!flag){
+    area.cities.forEach(item=>{
+      if(item.id == criCode) return type = '2'
+    })
+  }
+  return type
+}

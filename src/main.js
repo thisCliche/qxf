@@ -8,11 +8,11 @@ import './assets/less/reset.css'
 import VueVideoPlayer from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import './plugins/vant'
-
-
+import qs from "querystring";
 
 Vue.config.productionTip = false
 Vue.use(VueVideoPlayer)
+Vue.prototype.$qs = qs
 new Vue({
   router,
   store,

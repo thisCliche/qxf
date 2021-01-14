@@ -1,7 +1,9 @@
 <template>
   <div id="app" >
     <!-- :style="{height: bodyHeight + 'px'}" -->
-    <router-view/>
+    <keep-alive include="Home">
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 <script>

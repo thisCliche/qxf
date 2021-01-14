@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { List, PullRefresh, Cell, CellGroup,Tab, Tabs, Col, Row, Image as VanImage, Loading, Swipe, SwipeItem, Lazyload, Toast, NavBar, Field, Uploader, Button, Icon, Popup, Rate, Form, Checkbox, CheckboxGroup, Search, DropdownMenu, DropdownItem, Tag, Area ,IndexBar, IndexAnchor,Collapse, CollapseItem} from 'vant'
+import { List, PullRefresh, Cell, CellGroup,Tab, Tabs, Col, Row, Image as VanImage, Loading, Swipe, SwipeItem, Lazyload, Toast, NavBar, Field, Uploader, Button, Icon, Popup, Rate, Form, Checkbox, CheckboxGroup, Search, DropdownMenu, DropdownItem, Tag, Area ,IndexBar, IndexAnchor,Collapse, CollapseItem, Skeleton, Empty, Dialog  } from 'vant'
 
 Vue.use(List)
 Vue.use(PullRefresh)
@@ -32,6 +32,9 @@ Vue.use(IndexBar);
 Vue.use(IndexAnchor);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
+Vue.use(Skeleton);
+Vue.use(Empty);
 
+Vue.use(Dialog );
 Vue.use(Lazyload);
 Vue.use(Toast);

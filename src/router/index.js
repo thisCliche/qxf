@@ -121,7 +121,12 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  // 当切换路由时，滚动到顶部位置
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
+  
 })
 
 export default router
