@@ -4,17 +4,12 @@
 .location {
   position: relative;
 }
-.location .van-nav-bar {
-  background: #d53c3e;
-  color: #fff;
-  height: 0.88rem;
-}
-.location .van-nav-bar /deep/ .van-nav-bar__title {
+.location .iconfont {
   color: #fff;
 }
 .location .city-search {
   position: fixed;
-  top: 0.88rem;
+  top: 0.84rem;
   left: 0;
   right: 0;
   z-index: 999;
@@ -23,7 +18,7 @@
   overflow: hidden;
   position: fixed;
   z-index: 1000;
-  top: 1.58rem;
+  top: 1.56rem;
   left: 0;
   right: 0;
   bottom: 0;
@@ -36,7 +31,7 @@
   color: #666;
 }
 .location .van-collapse {
-  margin-top: 1.6rem;
+  margin-top: 1.56rem;
 }
 .location .van-collapse /deep/ .van-collapse-item__content {
   background: #f2f2f2;
@@ -59,7 +54,7 @@
   overflow: hidden;
 }
 .location .van-index-bar /deep/ .van-index-anchor--sticky {
-  top: 1.6rem;
+  top: 1.56rem;
 }
 .location .van-index-bar /deep/ .van-index-bar__sidebar {
   top: 7.58rem;

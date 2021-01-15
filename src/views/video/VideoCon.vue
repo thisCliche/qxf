@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar @click-left="onClickLeft" left-arrow></van-nav-bar>
+    <van-nav-bar @click-left="$router.go(-1)" left-arrow></van-nav-bar>
     <video-player
       class="video-player-box"
       ref="videoPlayer"
@@ -178,7 +178,6 @@ export default {
     },
   },
   methods: {
-    onClickLeft() {},
     like() {
       this.likeColor = this.likeColor == "rightDef" ? "rightSele" : "rightDef";
     },

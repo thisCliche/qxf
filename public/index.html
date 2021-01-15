@@ -14,6 +14,14 @@
         localStorage.setItem('token', token);
       }
   </script>
+  <% if(htmlWebpackPlugin.options.isProd) { %>
+  <script>
+      // 为了调试临时写的信息
+      localStorage.setItem('areaName', '南京市');
+      localStorage.setItem('criCode', '320100');
+      localStorage.setItem('token', '488b9faad488fcc05dd80a1287bc2b34');
+  </script>
+  <% } %>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>

@@ -1,6 +1,5 @@
 <template>
   <div class="homeList">
-    <!-- 政策 -1 申报 0 公示 2 培训 1 -->
     <!-- header区域 -->
     <div class="header">
       <div class="header-left">
@@ -278,6 +277,7 @@
   </div>
 </template>
 <script>
+import {  mapState, mapActions } from 'vuex'
 import { getBanner, getNewsPhone, getpolicy, getUserAvatar } from "@/api/request.js";
 export default {
   name: "Home",
@@ -323,9 +323,11 @@ export default {
         policyType: 0,
       };
     },
+    ...mapState(['erea']),
   },
   watch: {},
   methods: {
+    ...mapActions(['changeCity']),
     //  切换后回到记录位置
     tabsChange(name,title) {
       let top = this.typeStatues[name].scrollHeight;
@@ -390,16 +392,19 @@ export default {
     },
     // 获取banner图 && 头像
     async getBanner() {
-      let res = await getBanner(this.criCode);
+      try{ let res = await getBanner(this.criCode);
       if (res.data.code != "200") return this.$toast({ message: "轮播图获取失败！", position: "bottom" });
       this.bannerList = res.data.data;
       let avatar = await getUserAvatar()
       if (avatar.data.code != "200") return this.$toast({ message: "头像获取失败！", position: "bottom" });
       this.avatarUrl = avatar.data.data;
+      } catch(e){
+        console.log(e)
+      }
     },
     //  获取新闻基础代码
     async baseGetPolicy(idx, page = 1) {
-      let newListQuery = this.newListQuery;
+      try{ let newListQuery = this.newListQuery;
       newListQuery.policyType = idx;
       newListQuery.page = page;
       let res = await getpolicy(this.$qs.stringify(newListQuery));
@@ -408,6 +413,7 @@ export default {
       let imgRes = await getNewsPhone(this.$qs.stringify(this.newImgQuery));
       if (imgRes.data.code != "200")
         return this.$toast({ message: "新闻图获取失败！", position: "bottom" });
+      if(imgRes.data.data.records.length == 0) return this.$toast({ message: "当前城市暂无新闻", position: "bottom" });
       res = res.data.data.records;
       imgRes = imgRes.data.data.records;
       res.forEach((item) => {
@@ -421,6 +427,9 @@ export default {
         return { ...key, ...res[index] };
       });
       return newList;
+      }catch(e) {
+        console.log(e)
+      }
     },
     //  刷新新闻列表
     async reGetPolicy(idx) {
@@ -444,33 +453,28 @@ export default {
     },
   },
   created() {
-    // 为了调试临时写的信息
-    // let criCode = '320100' , token = '488b9faad488fcc05dd80a1287bc2b34', areaName = '南京市';
-    // localStorage.setItem('areaName', areaName)
-    // localStorage.setItem('criCode', criCode)
-    // localStorage.setItem('token', token)
-
-    this.criCode = localStorage.getItem('criCode')
-    this.areaName = localStorage.getItem('areaName')
+    this.changeCity({name:localStorage.getItem('areaName'),code:localStorage.getItem('criCode')})
+    this.criCode = this.erea.code
+    this.areaName = this.erea.name
     this.getBanner();
     this.initGetPolicy();
   },
-  // beforeRouteEnter(to, from, next) {
-  //   if(from.path == '/location') {
-  //     return next(vm=>{
-  //       vm.criCode = localStorage.getItem('criCode')
-  //     vm.areaName = localStorage.getItem('areaName')
-  //     vm.getBanner();
-  //     vm.initGetPolicy();
-  //     })
-  //   }
-  //   next()
-  // },
   activated() {
-    let criCode = localStorage.getItem('criCode')
+    let criCode = this.erea.code
     if(this.criCode != criCode) {
-      this.criCode = localStorage.getItem('criCode')
-      this.areaName = localStorage.getItem('areaName')
+      this.bannerList= []
+      this.zcList= []
+      this.sbList= []
+      this.gsList= []
+      this.pxList= []
+      this.typeStatues= {
+        zcList: { loading: false, finished: false, refreshing: false, scrollHeight: 0, error: false,keepPage:2 },
+        sbList: { loading: false, finished: false, refreshing: false, scrollHeight: 0, error: false,keepPage:2 },
+        gsList: { loading: false, finished: false, refreshing: false, scrollHeight: 0, error: false,keepPage:2 },
+        pxList: { loading: false, finished: false, refreshing: false, scrollHeight: 0, error: false,keepPage:2 },
+      },
+      this.criCode = this.erea.code
+      this.areaName = this.erea.name
       this.getBanner();
       this.initGetPolicy();
     }

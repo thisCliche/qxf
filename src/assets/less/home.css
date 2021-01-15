@@ -1,3 +1,6 @@
+.hairline--bottom {
+  border-bottom: 1px #eee solid;
+}
 .homeList {
   padding: 0 0.24rem;
   position: relative;
@@ -152,7 +155,7 @@
   opacity: 0.4;
 }
 .homeList .van-row {
-  padding: 0.3rem 0;
+  padding: 0.3rem 0.02rem 0.3rem 0;
 }
 .homeList .title {
   color: #797979;

@@ -1,4 +1,4 @@
-{
+let cityJson = `{
   "province": [
     {
       "spell": "hebeishen",
@@ -2078,4 +2078,7 @@
         "id": "520300"
       }
     ]
-}
+}`
+export default {
+  cityInfo : JSON.parse(cityJson)
+};

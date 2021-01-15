@@ -21,8 +21,12 @@ service.interceptors.response.use(responese => {
   },
   error => {
     if (error.message.includes('timeout')) { // 判断请求异常信息中是否含有超时timeout字符串
-      Toast.fail('网络连接失败');
-      return Promise.reject(error); // reject这个错误信息
+      Toast.fail('网络连接超时');
+      return  // reject这个错误信息
+    }
+    if (error.message.includes('500')){
+      Toast.fail('服务器崩了...');
+      return ; // reject这个错误信息
     }
     return Promise.reject(error);
   }

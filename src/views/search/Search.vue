@@ -2,7 +2,7 @@
   <div class="search">
     <div class="searchTop">
       <van-row class="searchColumn" type="flex">
-        <div class="location van-ellipsis" @click="$router.push('/location')">
+        <div class="location van-ellipsis" @click="$router.push('/locationtemp')">
           {{areaName}}
         </div>
         <div style="flex:1;">
@@ -118,7 +118,7 @@
                   fit="cover"
                   radius="10"
                   height="1.5rem"
-                >
+                -->
                   <!-- 播放标识插槽 -->
                   <!-- <template v-slot:default>
                     <div class="cover"></div>
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import { getJspaJspaQuery, getJspaPolicy } from "@/api/request.js";
 export default {
   name: "",
@@ -196,6 +197,7 @@ export default {
       if (this.searchValHist.length) return true;
       else false;
     },
+    ...mapState(['ereaTemp']),
   },
   methods: {
     record(item) {
@@ -317,8 +319,8 @@ export default {
       JSON.parse(localStorage.getItem("searchValHist")) || [];
   },
   mounted() {
-    this.criCode = localStorage.getItem('criCode')
-    this.areaName = localStorage.getItem('areaName')
+    this.criCode = this.ereaTemp.code
+    this.areaName = this.ereaTemp.name
     this.getPublisher();
   },
 };

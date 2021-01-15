@@ -17,9 +17,11 @@ import Setting from '../views/my/Setting.vue'
 import Changepwd from '../views/my/Changepwd.vue'
 import Search from '../views/search/Search.vue'
 import Location from '../views/search/Location.vue'
+import LocationTemp from '../views/search/LocationTemp.vue'
 
 import VideoWrapper from '../views/video/VideoWrapper.vue'
 import Video from '../views/video/Video.vue'
+import VideoColumn from '../views/video/VideoColumn.vue'
 import VideoCon from '../views/video/VideoCon.vue'
 import ServeConsul from '../views/video/ServeConsul.vue'
 
@@ -100,6 +102,10 @@ Vue.use(VueRouter)
     component: Location,
   },
   {
+    path: '/locationtemp',
+    component: LocationTemp,
+  },
+  {
     path: '/videowrapper',
     component: VideoWrapper,
     redirect: Video,
@@ -111,6 +117,10 @@ Vue.use(VueRouter)
       {
         path: '/videocon',
         component: VideoCon
+      },
+      {
+        path: '/videocolumn',
+        component: VideoColumn
       },
       {
         path: '/serveconsul',

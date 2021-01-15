@@ -55,7 +55,7 @@
     <!-- 最近访问 -->
     <div class="recentVisit" v-if="localtionRecord.length != 0">
       <p class="title">最近访问</p>
-      <van-row type="flex" gutter="5" style="flex-wrap:wrap;">
+      <van-row type="flex" gutter="5" style="flex-wrap:wrap;" >
             <van-col style="margin: 0.05rem 0;" v-for="item of localtionRecord" :key="item.code">
               <van-button @click="changeDistrict(item.code,item.name)">{{item.name}}</van-button>
             </van-col>
@@ -133,10 +133,10 @@ export default {
       if(this.areaType == '2') return true
       else return false
     },
-    ...mapState(['erea']),
+    ...mapState(['ereaTemp']),
   },
   methods: {
-    ...mapActions(['changeCity']),
+    ...mapActions(['changeCityTemp']),
     getSeaRes(res, status) {
       this.keyword = status;
       this.hasNoData = res.length == 0 ? true : false;
@@ -161,19 +161,16 @@ export default {
         this.localtionRecord.push({code,name});
       }
       localStorage.setItem("localtionRecord", JSON.stringify(this.localtionRecord));
-      this.changeCity({name,code})
+      this.changeCityTemp({name,code})
       this.$router.go(-1)
     }
   },
   created() {
-    
-  },
-  mounted() {
     // 取出存储里的历史搜索记录并转为数组
     this.localtionRecord =
       JSON.parse(localStorage.getItem("localtionRecord")) || [];
-    this.criCode = this.erea.code
-    this.areaName = this.erea.name
+    this.criCode = this.ereaTemp.code
+    this.areaName = this.ereaTemp.name
     let type = '3', flag = false;
     areaJson.cityInfo.province.forEach(item=>{
       if(item.id == this.criCode)  {type = '1';flag=true; return}
@@ -185,6 +182,8 @@ export default {
     }
     this.areaType = type
     if(this.areaType == '2') this.getDistrict()
+  },
+  mounted() {
     new Bscroll(this.$refs.search, {
       click: true,
     });

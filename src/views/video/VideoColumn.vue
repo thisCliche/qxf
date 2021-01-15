@@ -1,8 +1,6 @@
 <template>
-  <div class="videoWrapper">
-    <keep-alive include="videopage">
-      <router-view />
-    </keep-alive>
+  <div class="videoColumn">
+    <van-nav-bar title="猜你喜欢" left-arrow @click-left="$router.go(-1)"></van-nav-bar>
   </div>
 </template>
 
@@ -18,10 +16,13 @@ export default {
   computed: {},
   methods: {},
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.$route)
+  },
 }
 </script>
 
 <style lang="less" scoped>
-.videoWrapper{height: 100%;}
+@import "../../assets/less/constant.less";
+
 </style>
