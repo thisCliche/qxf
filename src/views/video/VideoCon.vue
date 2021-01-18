@@ -139,6 +139,7 @@ export default {
   name: "",
   data() {
     return {
+      params: '',
       showAbs: true,
       likeColor: "rightDef",
       distance: 70,
@@ -209,6 +210,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.params = this.$route.params.id;
     window.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
@@ -218,82 +220,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-  background: transparent;
-  position: fixed;
-  top: 0;
-  /deep/ .van-icon {
-    color: #333;
-    background: #fff;
-    border-radius: 50%;
-    padding: 8px;
-    opacity: 0.8;
-  }
-}
-.video-player-box /deep/ .video-js .vjs-big-play-button {
-  top: 50%;
-  left: 50%;
-  width: 1.8em;
-  height: 1.8em;
-  border-radius: 50%;
-  margin-left: -0.9em;
-  margin-top: -0.9em;
-  line-height: 1.7em;
-}
-.detail {
-  padding: 0 0.24rem;
-  .title {
-    font-size: 0.32rem;
-    color: #333333;
-    margin: 0.3rem 0;
-  }
-  .discript {
-    font-size: 0.28rem;
-    color: #999999;
-    line-height: 0.36rem;
-  }
-  .like {
-    margin-top: 0.3rem;
-    .left {
-      color: #d53c3e;
-      font-size: 0.32rem;
-      font-weight: 500;
-    }
-    .rightDef {
-      color: #999;
-    }
-    .rightSele {
-      color: #d53c3e;
-    }
-  }
-  .conferenceIntroduction {
-    margin: 0.64rem 0;
-    /deep/ .cover {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      background: rgba(83, 83, 83, 0.4);
-      text-align: center;
-      color: #fff;
-      font-size: 0.3rem;
-      line-height: 0.4rem;
-    }
-    /deep/ p:first-child {
-      margin-top: 0.7rem;
-    }
-  }
-}
-.backTop {
-  position: fixed;
-  right: 0.3rem;
-  bottom: 0.5rem;
-  background: #fbe1e1;
-  border-radius: 50%;
-  padding: 0.05rem;
-  box-shadow: 0px 3px 2px #cacaca;
-  .iconfont {
-    font-size: 36px;
-  }
-}
+@import "../../assets/less/videocon.less";
 </style>

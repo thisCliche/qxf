@@ -1,8 +1,6 @@
 <template>
-  <div class="videoWrapper">
-    <keep-alive include="videopage,videocolumn">
-      <router-view />
-    </keep-alive>
+  <div class="assessWrapper">
+    <router-view />
   </div>
 </template>
 
@@ -23,5 +21,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.videoWrapper{height: 100%;}
+.assessWrapper{height: 100%;}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="homeList">
-    <van-nav-bar title="视频" fixed></van-nav-bar>
+    <van-nav-bar title="视频" :border="false" fixed></van-nav-bar>
     <div class="container">
       <div style="padding-top:0.16rem;">
         <!-- banner区域 -->
@@ -19,7 +19,7 @@
             <router-link to="/videocolumn?type=guess" style="display: flex;align-items: center;">全部 <van-icon name="arrow" /></router-link>
           </div>
           <van-row class="guessRow" type="flex" gutter="15">
-            <van-col class="van-col" v-for="item in test" :key="item">
+            <van-col class="van-col" v-for="item in test" :key="item"  @click="toCon(item)">
               <van-image
                 src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
                 fit="cover"
@@ -54,7 +54,7 @@
             style="flex-wrap:wrap;"
             justify="space-between"
           >
-            <van-col class="van-col" span="12" v-for="item in test" :key="item">
+            <van-col class="van-col" span="12" v-for="item in test" :key="item" @click="toCon(item)">
               <van-image
                 src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
                 fit="cover"
@@ -92,6 +92,7 @@ export default {
       // tab数据
       active: 0,
       test: [1, 2, 3, 4, 5],
+      scrollHeightRecord: [],
       images: [
         "http://img.xiaojiayun.top/2020/03/115753828.jpg",
         "http://img.xiaojiayun.top/2020/03/1270226805.jpg",
@@ -103,7 +104,24 @@ export default {
   components: {},
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    toCon(item) {
+      let top =
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        window.pageYOffset;
+      this.scrollHeightRecord.push(top)
+      this.$router.push(`/videocon/${item}`)
+    }
+  },
+  activated() {
+    if(this.scrollHeightRecord.length != 0) {
+      let top = this.scrollHeightRecord[this.scrollHeightRecord.length-1];
+      setTimeout(_=>{
+        scrollTo(0, top);
+      },100)
+    }
+  },
   created() {},
   mounted() {
   },

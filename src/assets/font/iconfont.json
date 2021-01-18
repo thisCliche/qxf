@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8487966",
+      "name": "117认证评估",
+      "font_class": "renzhengpinggu",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "4266175",
+      "name": "荣誉",
+      "font_class": "rongyu",
+      "unicode": "e719",
+      "unicode_decimal": 59161
+    },
+    {
+      "icon_id": "5485635",
+      "name": "链接",
+      "font_class": "lianjie",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "202937",
+      "name": "service-进口保税",
+      "font_class": "servicejinkoubaoshui",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "700810",
+      "name": "钱",
+      "font_class": "qian",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "1272738",
+      "name": "时间",
+      "font_class": "time",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "1831572",
+      "name": "我的企业",
+      "font_class": "wodeqiye",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
       "icon_id": "3248670",
       "name": "关闭",
       "font_class": "guanbi",

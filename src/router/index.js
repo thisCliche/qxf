@@ -25,6 +25,12 @@ import VideoColumn from '../views/video/VideoColumn.vue'
 import VideoCon from '../views/video/VideoCon.vue'
 import ServeConsul from '../views/video/ServeConsul.vue'
 
+import AssessWrapper from '../views/assess/AssessWrapper.vue'
+import Assess from '../views/assess/Assess.vue'
+import AssessSynopsis from '../views/assess/AssessSynopsis.vue'
+import AssessPolicy from '../views/assess/AssessPolicy.vue'
+
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -115,7 +121,7 @@ Vue.use(VueRouter)
         component: Video
       },
       {
-        path: '/videocon',
+        path: '/videocon/:id',
         component: VideoCon
       },
       {
@@ -125,6 +131,25 @@ Vue.use(VueRouter)
       {
         path: '/serveconsul',
         component: ServeConsul
+      },
+    ]
+  },
+  {
+    path: '/assesswrapper',
+    component: AssessWrapper,
+    redirect: Assess,
+    children: [
+      {
+        path: '/assess',
+        component: Assess
+      },
+      {
+        path: '/assesssynopsis',
+        component: AssessSynopsis
+      },
+      {
+        path: '/assesspolicy',
+        component: AssessPolicy
       },
     ]
   }
