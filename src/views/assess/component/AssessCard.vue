@@ -6,13 +6,13 @@
         height="0.96rem"
         fit="cover"
         round
-        :src="assessDis.logo"
+        :src="assessDis.url"
       />
-      <p class="van-ellipsis">{{assessDis.title}}</p>
+      <p class="van-ellipsis">{{assessDis.name}}</p>
       <van-button @click="toCon()"  round size="mini" color="#d43d3d">评估</van-button>
     </div>
     <div class="second">
-      <p v-for="item of assessDis.advantage" :key="item.icon"><van-icon class="iconfont" class-prefix="icon" :name="item.icon" color="#d43d3d" />{{item.describe}}</p>
+      <p v-for="item of advantage" :key="item.icon"><van-icon class="iconfont" class-prefix="icon" :name="item.icon" color="#d43d3d" />{{item.describe}}</p>
     </div>
   </div>
 </template>
@@ -29,14 +29,19 @@ export default {
     }
   },
   components: {},
-  computed: {},
+  computed: {
+    advantage() {
+      return JSON.parse(this.assessDis.font)
+    }
+  },
   methods: {
     toCon() {
-
+      this.$emit('goTosynopsis',this.assessDis)
     },
   },
   created() {},
-  mounted() {},
+  mounted() {
+  },
 };
 </script>
 

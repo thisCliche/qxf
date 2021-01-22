@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     erea:{name: '',code: ''},
     ereaTemp:{name: '',code: ''},
+    assesssynopsis: {}
   },
 
   actions: {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
       state.ereaTemp.name = city.name
       state.ereaTemp.code = city.code
     },
+    changeassesssynopsis(state, item) {
+      state.assesssynopsis = item
+    }
   },
 
   modules: {

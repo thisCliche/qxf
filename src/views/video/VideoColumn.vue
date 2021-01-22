@@ -26,30 +26,30 @@
         <van-col
           class="van-col"
           span="12"
-          v-for="item in test"
-          :key="item"
-          @click="tuCon(item)"
+          v-for="item of videoInfo"
+          :key="item.id"
+          @click="toCon(item.id)"
         >
           <van-image
-            src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
+            :src="item.videoDetailsUrl"
             fit="cover"
             radius="10"
             height="1.5rem"
           >
             <!-- 播放标识插槽 -->
             <template v-slot:default>
-              <div class="cover1">58:35</div>
+              <div class="cover1">{{item.videoDuration}}</div>
             </template>
             <template v-slot:loading></template>
           </van-image>
           <p class="ClumnTitle van-ellipsis">
-            企业业绩长期不能突破的原因所在
+            {{item.title}}
           </p>
           <p class="description van-multi-ellipsis--l2">
-            某某金牌老师为您解答，为你带来问题的答案
+            {{item.details}}
           </p>
           <div class="bottom">
-            <span class="iconfont icon-jiageqian"></span><span> 69.90</span>
+            <span class="iconfont icon-jiageqian"></span><span> {{item.price}}</span>
           </div>
         </van-col>
       </van-row>
@@ -58,42 +58,51 @@
 </template>
 
 <script>
+import {getVideoList} from '@/api/request.js'
 export default {
   name: "videocolumn",
   data() {
     return {
-      test: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       type: "",
       loading: false,
       finished: false,
       error: false,
-      scrollHeightRecord: []
+      scrollHeightRecord: [],
+      query:{
+        page:1,
+        size:10
+      },
+      videoInfo: [],
+      total: ''
     };
   },
 
   components: {},
   computed: {},
   methods: {
-    onLoad() {
-      setTimeout(() => {
-        for (let i = 11; i < 41; i++) {
-          this.test.push(this.test.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-        // 数据全部加载完成
-        if (this.test.length >= 40) {
-          this.finished = true;
-        }
-      }, 1000);
+    async onLoad() {
+      this.query.page += 1;
+      let res = await getVideoList(this.$qs.stringify(this.query));
+      if(res.data.code != '200') return this.$toast({ message: "视频列表获取失败！", position: "bottom" });
+      this.videoInfo.push(...res.data.data.records)
+      this.loading = false
+      if(this.videoInfo.length >= this.total) {
+        this.finished = true
+      }
     },
-    tuCon(item){
+    toCon(item){
       let top =
         document.documentElement.scrollTop ||
         document.body.scrollTop ||
         window.pageYOffset;
       this.scrollHeightRecord.push(top)
       this.$router.push(`/videocon/${item}`)
+    },
+    async getVideoList(){
+      let res = await getVideoList(this.$qs.stringify(this.query));
+      if(res.data.code != '200') return this.$toast({ message: "视频列表获取失败！", position: "bottom" });
+      this.videoInfo = res.data.data.records
+      this.total = res.data.data.total
     }
   },
   activated() {
@@ -109,6 +118,7 @@ export default {
     let type = this.$route.query.type;
     if (type == "guess") return (this.type = "猜你喜欢");
     else this.type = "精品视频";
+    this.getVideoList()
   },
 };
 </script>

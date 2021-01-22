@@ -4,7 +4,7 @@ import {Toast} from 'vant'
 Vue.use(Toast);
 const service = axios.create({
   baseURL: 'http://192.168.90.7:9527/',
-  timeout: 5000,
+  // timeout: 5000,
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   }
@@ -39,7 +39,7 @@ export function getBanner(criCode) {
     method: 'post',
   })
 }
-// 获取banner图
+// 获取头像
 export function getUserAvatar() {
   return service({
     url: `appnews/jspaPolicy/getUserAvatar`,
@@ -100,6 +100,98 @@ export function getRegion(criCode) {
 export function getJscodeOpen(criCode) {
   return service({
     url: `appnews/jspaJspa/getJscodeOpen?criCode=${criCode}`,
+    method: 'post',
+  })
+}
+// 获取企业评估列表
+export function getMyAssessmentList(data) {
+  return service({
+    url: 'appauth/cCustomerAssessmentType/getMyAssessmentList',
+    method: 'post',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    data: data
+  })
+}
+
+// 视频接口
+export function getVideoRadom() {
+  return service({
+    url: `appvideo/cVideo/getVideoRadom`,
+    method: 'post',
+  })
+}
+// 视频列表
+export function getVideoList(data) {
+  return service({
+    url: 'appvideo/cVideo/getVideoList',
+    method: 'post',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    data: data
+  })
+}
+// 视频播放
+export function getVideo(id) {
+  return service({
+    url: `appvideo/cVideo/getVideo?id=${id}`,
+    method: 'post',
+  })
+}
+// 创建企业评估
+export function createMyAssessment(data) {
+  return service({
+    url: 'appauth/cCustomerAssessment/createMyAssessment',
+    method: 'post',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    data: data
+  })
+}
+// 问题列表
+export function getMyQuestionList(id) {
+  return service({
+    url: `appauth/cCustomerAssessmentQuestion/getMyQuestionList?assessmentId=${id}`,
+    method: 'post',
+  })
+}
+// 获取问题
+export function getMyQuestion(data) {
+  return service({
+    url: 'appauth/cCustomerAssessmentQuestion/getMyQuestion',
+    method: 'post',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    data: data
+  })
+}
+// 提交我的回答
+export function submitMyAnswer(data) {
+  return service({
+    url: 'appauth/cCustomerAssessmentQuestion/submitMyAnswer',
+    method: 'post',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    data: data
+  })
+}
+// 获取评估报告
+export function myAssessInfo(id) {
+  return service({
+    url: `appauth/cCustomerAssessment/myAssessInfo?assessment=${id}`,
+    method: 'post',
+  })
+}
+
+// 获取新闻内容
+export function getJspaPolicyInfo(id) {
+  return service({
+    url: `appnews/jspaPolicy/getJspaPolicyInfo?id=${id}`,
     method: 'post',
   })
 }

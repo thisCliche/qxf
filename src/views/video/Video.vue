@@ -4,105 +4,136 @@
     <div class="container">
       <div style="padding-top:0.16rem;">
         <!-- banner区域 -->
-      <div class="bannerWrapper">
-        <van-swipe indicator-color="#d53c3e" :autoplay="3000">
-          <van-swipe-item v-for="(image, index) in images" :key="index">
-            <img v-lazy="image" />
-          </van-swipe-item>
-        </van-swipe>
-      </div>
-      <div class="videoClumn">
-        <!-- 猜你喜欢 -->
-        <div class="guess">
-          <div class="title">
-            <p>猜你喜欢</p>
-            <router-link to="/videocolumn?type=guess" style="display: flex;align-items: center;">全部 <van-icon name="arrow" /></router-link>
-          </div>
-          <van-row class="guessRow" type="flex" gutter="15">
-            <van-col class="van-col" v-for="item in test" :key="item"  @click="toCon(item)">
-              <van-image
-                src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
-                fit="cover"
-                radius="10"
-                height="1.5rem"
-              >
-                <!-- 播放标识插槽 -->
-                <template v-slot:default>
-                  <div class="cover1">58:35</div>
-                </template>
-                <template v-slot:loading></template>
-              </van-image>
-              <p class="ClumnTitle van-ellipsis">
-                企业业绩长期不能突破的原因所在
-              </p>
-              <div class="bottom">
-                <span class="iconfont icon-jiageqian"></span><span> 69.90</span>
-              </div>
-            </van-col>
-          </van-row>
+        <div class="bannerWrapper">
+          <van-swipe indicator-color="#d53c3e" :autoplay="3000">
+            <van-swipe-item v-for="item in images" :key="item.id">
+              <img v-lazy="item.url" />
+            </van-swipe-item>
+          </van-swipe>
         </div>
-        <!-- 精品课程 -->
-        <div class="Boutique">
-          <div class="title">
-            <p>精品课程</p>
-            <router-link to="/videocolumn?type=boutique" style="display: flex;align-items: center;">全部 <van-icon name="arrow" /></router-link>
-          </div>
-          <van-row
-            class="van-hairline--surround"
-            type="flex"
-            gutter="15"
-            style="flex-wrap:wrap;"
-            justify="space-between"
-          >
-            <van-col class="van-col" span="12" v-for="item in test" :key="item" @click="toCon(item)">
-              <van-image
-                src="http://img.xiaojiayun.top/2020/03/3503899455.jpg"
-                fit="cover"
-                radius="10"
-                height="1.5rem"
+        <div class="videoClumn">
+          <!-- 猜你喜欢 -->
+          <div class="guess">
+            <div class="title">
+              <p>猜你喜欢</p>
+            </div>
+            <swiper :options="swiperOption">
+              <template
+              v-for="item in videoInfo.cainixihuan"
               >
-                <!-- 播放标识插槽 -->
-                <template v-slot:default>
-                  <div class="cover1">58:35</div>
-                </template>
-                <template v-slot:loading></template>
-              </van-image>
-              <p class="ClumnTitle van-ellipsis">
-                企业业绩长期不能突破的原因所在
-              </p>
-              <p class="description van-multi-ellipsis--l2">
-                某某金牌老师为您解答，为你带来问题的答案
-              </p>
-              <div class="bottom">
-                <span class="iconfont icon-jiageqian"></span><span> 69.90</span>
-              </div>
-            </van-col>
-          </van-row>
+                <swiper-slide
+              class="van-col"
+                :key="item.id"
+                @click="toCon(item.id)"
+                >
+                <van-image
+                  :src="item.video_details_url"
+                  fit="cover"
+                  radius="10"
+                  height="1.5rem"
+                  @click="toCon(item.id)"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover1">{{item.video_duration}}</div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+                <p class="ClumnTitle van-ellipsis">
+                  {{item.title}}
+                </p>
+                <div class="bottom">
+                  <span class="iconfont icon-jiageqian"></span
+                  ><span> {{item.price}}</span>
+                </div>
+                </swiper-slide>
+              </template>
+            </swiper>
+          </div>
+          <!-- 精品课程 -->
+          <div class="Boutique">
+            <div class="title">
+              <p>精品课程</p>
+              <router-link
+                to="/videocolumn?type=boutique"
+                style="display: flex;align-items: center;"
+                >全部 <van-icon name="arrow"
+              /></router-link>
+            </div>
+            <van-row
+              class="van-hairline--surround"
+              type="flex"
+              gutter="15"
+              style="flex-wrap:wrap;"
+              justify="space-between"
+            >
+              <van-col
+                class="van-col"
+                span="12"
+                v-for="item in videoInfo.jingpinshipin"
+                :key="item.id"
+                @click="toCon(item.id)"
+              >
+                <van-image
+                  :src="item.video_details_url"
+                  fit="cover"
+                  radius="10"
+                  height="1.5rem"
+                >
+                  <!-- 播放标识插槽 -->
+                  <template v-slot:default>
+                    <div class="cover1">{{item.video_duration}}</div>
+                  </template>
+                  <template v-slot:loading></template>
+                </van-image>
+                <p class="ClumnTitle van-ellipsis">
+                  {{item.title}}
+                </p>
+                <p class="description van-multi-ellipsis--l2">
+                  {{item.lecturer_details}}
+                </p>
+                <div class="bottom">
+                  <span class="iconfont icon-jiageqian"></span
+                  ><span> {{item.price}}</span>
+                </div>
+              </van-col>
+            </van-row>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import "swiper/dist/css/swiper.css";
+import {mapState} from 'vuex'
+import {getVideoRadom, getBanner} from '@/api/request.js'
+import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
   name: "videopage",
   data() {
     return {
-      // tab数据
-      active: 0,
+      swiperOption: {
+        autoplay: 2000,
+        speed: 1000,
+        preventClicks : false,
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 10
+      },
       test: [1, 2, 3, 4, 5],
+      videoInfo: {},
       scrollHeightRecord: [],
-      images: [
-        "http://img.xiaojiayun.top/2020/03/115753828.jpg",
-        "http://img.xiaojiayun.top/2020/03/1270226805.jpg",
-        "http://img.xiaojiayun.top/2020/03/128578367.png",
-        "http://img.xiaojiayun.top/2020/03/1362501591.jpg",
-      ],
+      images: [],
     };
   },
-  components: {},
-  computed: {},
+  components: {
+    swiper,
+    swiperSlide,
+  },
+  computed: {
+    ...mapState(['erea'])
+  },
   watch: {},
   methods: {
     toCon(item) {
@@ -110,23 +141,36 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop ||
         window.pageYOffset;
-      this.scrollHeightRecord.push(top)
-      this.$router.push(`/videocon/${item}`)
-    }
+      this.scrollHeightRecord.push(top);
+      this.$router.push(`/videocon/${item}`);
+    },
+    async getVideoRadom() {
+      let res = await getVideoRadom()
+      if(res.data.code != '200') return this.$toast({ message: "视频获取失败！", position: "bottom" });
+      this.videoInfo = res.data.data
+    },
+    async getbanner() {
+      let bannerRes = await getBanner(this.erea.code)
+      if(bannerRes.data.code != '200') return this.$toast({ message: "banner获取失败！", position: "bottom" });
+      this.images = bannerRes.data.data
+    },
   },
   activated() {
-    if(this.scrollHeightRecord.length != 0) {
-      let top = this.scrollHeightRecord[this.scrollHeightRecord.length-1];
-      setTimeout(_=>{
+    if (this.scrollHeightRecord.length != 0) {
+      let top = this.scrollHeightRecord[this.scrollHeightRecord.length - 1];
+      setTimeout((_) => {
         scrollTo(0, top);
-      },100)
+      }, 100);
     }
   },
   created() {},
   mounted() {
+    this.getVideoRadom()
+    this.getbanner()
   },
 };
 </script>
 <style lang="less" scoped>
 @import "../../assets/less/video.less";
+
 </style>

@@ -3,134 +3,26 @@
     <van-nav-bar title="评估" :border="false" fixed left-arrow @left-click="$router.go(-1)"></van-nav-bar>
     <div class="contanier" ref="contanier">
       <div>
-        <assess-card :assessDis="item" v-for="item of assessList" :key="item.id"></assess-card>
+        <assess-card :assessDis="item" v-for="item of assessList" :key="item.id" @goTosynopsis="goTosynopsis"></assess-card>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+import {getMyAssessmentList} from '@/api/request.js'
 import Bscroll from "better-scroll";
 import AssessCard from './component/AssessCard'
 export default {
   name: '',
   data () {
     return {
-      assessList: [
-        {
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)',
-          id: 1,
-          advantage: [{
-            icon: 'wodeqiye',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'time',
-            describe: '4月、8月申报',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)1',
-          id: 2,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'time',
-            describe: '4月、8月申报',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 3,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 4,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 5,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 6,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 7,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },{
-          logo: 'https://img.yzcdn.cn/vant/cat.jpeg',
-          title: '高新技术企业认定(国家级)2',
-          id: 8,
-          advantage: [{
-            icon: 'qian',
-            describe: '20-40万补贴',
-          },
-          {
-            icon: 'servicejinkoubaoshui',
-            describe: '税减免10%',
-          }
-          ]
-        },
-      ]
+      query: {
+        page: 1,
+        size:10
+      },
+      assessList: []
     }
   },
 
@@ -138,9 +30,21 @@ export default {
     AssessCard
   },
   computed: {},
-  methods: {},
+  methods: {
+    ...mapMutations(['changeassesssynopsis']),
+    goTosynopsis(item) {
+      this.changeassesssynopsis(item)
+      this.$router.push('/assesssynopsis')
+    },
+    async getMyAssessmentList() {
+      let res = await getMyAssessmentList(this.$qs.stringify(this.query));
+      if(res.data.code != '200') return this.$toast({ message: "评估列表失败！", position: "bottom" });
+      this.assessList = res.data.data.records
+    }
+  },
   created() {},
   mounted() {
+    this.getMyAssessmentList()
     new Bscroll(this.$refs.contanier, {
       click: true,
     });

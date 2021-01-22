@@ -1,33 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <script>
-    function getAddress(criCode,areaName,token){
-        localStorage.setItem('areaName', areaName);
-        localStorage.setItem('criCode', criCode);
-        localStorage.setItem('token', token);
-      }
-  </script>
-  <% if(htmlWebpackPlugin.options.isProd) { %>
-  <script>
-      // 为了调试临时写的信息
-      localStorage.setItem('areaName', '南京市');
-      localStorage.setItem('criCode', '320100');
-      localStorage.setItem('token', '488b9faad488fcc05dd80a1287bc2b34');
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>
+    <%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %><%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+<% if(!htmlWebpackPlugin.options.isProd) { %>
+<script>
+    // 为了调试临时写的信息
+    localStorage.setItem('areaName', '南京市');
+    localStorage.setItem('criCode', '320100');
+    localStorage.setItem('token', '488b9faad488fcc05dd80a1287bc2b34');
   </script>
   <% } %>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-  <!-- <script src="./swiper-bundle.min.js"></script> -->
+
+<% if(htmlWebpackPlugin.options.isProd) { %>
+  <!--ios-->
+  <!-- <script>
+    function getAddress(criCode, areaName, token) {
+      localStorage.setItem('areaName', areaName);
+      localStorage.setItem('criCode', criCode);
+      localStorage.setItem('token', token);
+    }
+  </script>
+  -->
+  <!--android-->
+  <script>
+    let getAddress = window.android.back()
+    let newAddress = getAddress.split(',')
+    localStorage.setItem('areaName', newAddress[0]);
+    localStorage.setItem('criCode', newAddress[1]);
+    localStorage.setItem('token', newAddress[2]);
+  </script>
+  
+  <script src="https://cdn.staticfile.org/vue/2.6.12/vue.min.js"></script>
+  <script src="https://cdn.staticfile.org/vue-router/3.4.9/vue-router.min.js"></script>
+  <script src="https://cdn.staticfile.org/axios/0.20.0/axios.min.js"></script>
+  <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script> 
+  
+  <% } %>
+    <body>
+      <noscript>
+        <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+            Please enable it to continue.</strong>
+      </noscript>
+      <div id="app"></div>
+      <!-- built files will be auto injected -->
+    </body>
 </html>

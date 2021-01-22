@@ -58,6 +58,7 @@
               v-for="item in zcList"
               :key="item.id"
               justify="space-between"
+              @click="toDetial(item.id)"
             >
               <van-col span="16">
                 <p class="title van-ellipsis">
@@ -113,6 +114,7 @@
           >
             <!-- 每一行 -->
             <van-row
+            @click="toDetial(item.id)"
               class="hairline--bottom  van-clearfix"
               type="flex"
               v-for="item in sbList"
@@ -173,6 +175,7 @@
             <van-row
               class="hairline--bottom  van-clearfix"
               type="flex"
+              @click="toDetial(item.id)"
               v-for="item in gsList"
               :key="item.id"
               justify="space-between"
@@ -229,6 +232,7 @@
           >
             <!-- 每一行 -->
             <van-row
+            @click="toDetial(item.id)"
               class="hairline--bottom  van-clearfix"
               type="flex"
               v-for="item in pxList"
@@ -327,6 +331,14 @@ export default {
   },
   watch: {},
   methods: {
+    // 跳转详情页
+    toDetial(id) {
+      // this.$router.push(`/detail/${id}`)
+      // 给 ios 传递信息
+      window.webkit.messageHandlers.jsToOcWithPrams.postMessage({
+        params: `detail/${id}`,
+      });
+    },
     ...mapActions(['changeCity']),
     //  切换后回到记录位置
     tabsChange(name,title) {

@@ -9,7 +9,7 @@
     >
     </video-player>
     <div class="detail">
-      <p class="title">企业业绩长期不能突破原因在哪（直播）</p>
+      <p class="title">{{videoInfo.title}}</p>
       <p class="discript">
         <van-icon
           class-prefix="icon"
@@ -17,7 +17,7 @@
           color="#d53c3e"
           name="jieshao"
         />
-        产品描述，详情解析产品描述，详情解析产品描述，详情解析产品描述
+        {{videoInfo.details}}
       </p>
       <p class="like">
         <van-row type="flex" justify="space-between">
@@ -38,13 +38,13 @@
             round
             width="1.8rem"
             height="1.8rem"
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            :src="videoInfo.lecturerUrl"
           />
         </van-col>
         <van-col span="16">
-          <p style="font-size:0.36rem;line-height:0.56rem;">张三</p>
+          <p style="font-size:0.36rem;line-height:0.56rem;">{{videoInfo.lecturer}}</p>
           <p style="font-size:0.28rem;line-height:0.36rem;color:#999;">
-            主讲的工作履历介绍，负责的项目介绍积累了那些经验以及那些成就主讲的工作履历介绍，负责的项目介绍积累了那些经验以及那些成就
+            {{videoInfo.lecturerDetails}}
           </p>
         </van-col>
       </van-row>
@@ -54,7 +54,7 @@
       </h3>
       <van-image
         class="conferenceIntroduction"
-        :src="require('../../assets/videobg.png')"
+        :src="require('../../assets/videobg.jpg')"
       >
         <template v-slot:default>
           <div class="cover">
@@ -114,9 +114,7 @@
           <p>欢迎广大适龄青年依法进行兵役登记，踊跃报名应征!</p>
           <p style="text-align: right;">合肥市人民政府征兵办公室</p>
           <p style="text-align: right;">2021年1月5日</p>
-          <!--/enpcontent--><!--enpproperty <date>2021-01-06 00:00:00:0</date><author></author><subtitle></subtitle><introtitle></introtitle><keyword></keyword><id>221122</id><nodeid>0</nodeid><nodename></nodename><url></url><siteid>1</siteid>
-<title>合肥市2021年兵役登记公告</title>
-/enpproperty-->
+          
         </div>
       </div>
     </div>
@@ -130,10 +128,17 @@
         />
       </div>
     </transition>
+    <van-overlay :show="show">
+  <div class="wrapper" >
+    <van-loading size="24px" vertical>加载中...</van-loading>
+  </div>
+</van-overlay>
+    
   </div>
 </template>
 
 <script>
+import {getVideo} from '@/api/request.js'
 import "videojs-contrib-hls";
 export default {
   name: "",
@@ -143,33 +148,8 @@ export default {
       showAbs: true,
       likeColor: "rightDef",
       distance: 70,
-      playerOptions: {
-        playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
-        autoplay: false, // 如果为true,浏览器准备好时开始回放。
-        muted: false, // 默认情况下将会消除任何音频。
-        loop: false, // 是否视频一结束就重新开始。
-        preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-        language: "zh-CN",
-        aspectRatio: "16:9", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-        sources: [
-          {
-            // type: "application/x-mpegURL", // 类型
-            type: "video/mp4", // 类型
-            // src: "http://hls01open.ys7.com/openlive/6d499d610a0c4a6182e36ac7dca124ad.m3u8", // url地址
-            src: "http://img.xiaojiayun.top/demoPlayer.mp4", // url地址
-            // src: "https://lmm1120564654.oss-cn-beijing.aliyuncs.com/shipin/2e3ca16e0ba7d35d912d093fbfddc84f.mp4?Expires=1609994097&OSSAccessKeyId=TMP.3Khea7je2CM6nnGTHEh86CDXEam1ZA2papT6zRY7Nrv28HyoQzUFBXBvMMVYf1ivCKK68nkDqf7N3kkREGnhn3oDc3MWS9&Signature=udMawVe5r3iRW97FIb4VVBZCmss%3D", // url地址
-          },
-        ],
-        poster: "http://img.xiaojiayun.top/2020/03/3503899455.jpg", // 封面地址
-        notSupportedMessage: "此视频暂无法播放，请稍后再试", // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        controlBar: {
-          timeDivider: false, // 当前时间和持续时间的分隔符
-          durationDisplay: false, // 显示持续时间
-          remainingTimeDisplay: true, // 是否显示剩余时间功能
-          fullscreenToggle: true, // 是否显示全屏按钮
-        },
-      },
+      videoInfo:{},
+      show: true,
     };
   },
   components: {},
@@ -177,6 +157,35 @@ export default {
     player() {
       return this.$refs.videoPlayer.player;
     },
+    playerOptions() {
+        return {
+          playbackRates: [0.5, 1.0, 1.5, 2.0], 
+        autoplay: false, 
+        muted: false, 
+        loop: false, 
+        preload: "auto", 
+        language: "zh-CN",
+        aspectRatio: "16:9", 
+        fluid: true, 
+        sources: [
+          {
+            // type: "application/x-mpegURL", // 类型
+            type: "video/mp4", // 类型
+            // src: "http://hls01open.ys7.com/openlive/6d499d610a0c4a6182e36ac7dca124ad.m3u8", // url地址
+            src: this.videoInfo.videoUrl, // url地址
+            // src: "https://lmm1120564654.oss-cn-beijing.aliyuncs.com/shipin/2e3ca16e0ba7d35d912d093fbfddc84f.mp4?Expires=1609994097&OSSAccessKeyId=TMP.3Khea7je2CM6nnGTHEh86CDXEam1ZA2papT6zRY7Nrv28HyoQzUFBXBvMMVYf1ivCKK68nkDqf7N3kkREGnhn3oDc3MWS9&Signature=udMawVe5r3iRW97FIb4VVBZCmss%3D", // url地址
+          },
+        ],
+        poster: this.videoInfo.videoDetailsUrl, // 封面地址
+        notSupportedMessage: "此视频暂无法播放，请稍后再试", // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        controlBar: {
+          timeDivider: false, 
+          durationDisplay: false, 
+          remainingTimeDisplay: true, 
+          fullscreenToggle: true, 
+        }
+        }
+      },
   },
   methods: {
     like() {
@@ -207,11 +216,18 @@ export default {
         this.showAbs = true;
       }
     },
+    async getVideo() {
+      let res = await getVideo(this.params)
+      if(res.data.code != '200') return this.$toast({ message: "视频获取失败！", position: "bottom" });
+      this.videoInfo = res.data.data
+      this.show = false
+    }
   },
   created() {},
   mounted() {
     this.params = this.$route.params.id;
     window.addEventListener("scroll", this.handleScroll);
+    this.getVideo()
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -221,4 +237,10 @@ export default {
 
 <style lang="less" scoped>
 @import "../../assets/less/videocon.less";
+ .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 </style>

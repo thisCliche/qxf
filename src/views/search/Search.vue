@@ -91,6 +91,7 @@
             <van-row
               class="hairline--bottom"
               type="flex"
+              @click="toDetial(item.id)"
               v-for="item in searchRes"
               :key="item.id"
               justify="space-between"
@@ -200,6 +201,9 @@ export default {
     ...mapState(['ereaTemp']),
   },
   methods: {
+    toDetial(id){
+      this.$router.push(`/detail/${id}`)
+    },
     record(item) {
       this.searchVal = item;
       this.onSearch(item);
